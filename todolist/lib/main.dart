@@ -126,11 +126,11 @@ class _MyHomePageState extends State<MyHomePage>
                               Navigator.push(context, MaterialPageRoute<void>(
                                 builder: (BuildContext context) {
                                   return Scaffold(
-                                    appBar:
-                                        AppBar(title: Text('My to do list')),
+                                    appBar: AppBar(
+                                        title: Text('Not My to do list')),
                                     body: Center(
                                       child: TextButton(
-                                        child: Text('หวัดดี'),
+                                        child: Text('อิอิ'),
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
