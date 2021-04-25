@@ -1,19 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/Todo_Routes.dart';
+import 'addTodolist.dart';
 
 void main() {
   runApp(TodoApp());
 }
 
 class TodoApp extends StatelessWidget {
+  static const routeName = '/main';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "No AppBar Pls",
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      initialRoute: getInitialRoute(),
+      onGenerateRoute: (route) => getRoute(route),
     );
   }
+
+  String getInitialRoute() => TodoRoute.home;
+  Route? getRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case TodoRoute.home:
+        return buildRoute(MyHomePage(), settings: settings);
+      case TodoRoute.addTodolist:
+        return buildRoute(AddTodoPage(), settings: settings);
+      //case TodoRoute.reminder:
+      //return buildRoute(Reminder(), settings: settings);
+      default:
+        return null;
+    }
+  }
 }
+
+MaterialPageRoute buildRoute(Widget child, {required RouteSettings settings}) =>
+    MaterialPageRoute(
+      settings: settings,
+      // ignore: non_constant_identifier_names
+      builder: (BuildContext) => child,
+    );
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -123,22 +148,8 @@ class _MyHomePageState extends State<MyHomePage>
                             ),
                             onClick: () {
                               print("First Button");
-                              Navigator.push(context, MaterialPageRoute<void>(
-                                builder: (BuildContext context) {
-                                  return Scaffold(
-                                    appBar: AppBar(
-                                        title: Text('Not My to do list')),
-                                    body: Center(
-                                      child: TextButton(
-                                        child: Text('อิอิ'),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ));
+                              Navigator.pushNamed(
+                                  context, TodoRoute.addTodolist);
                             },
                           ),
                         ),
